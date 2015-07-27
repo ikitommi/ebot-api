@@ -8,9 +8,9 @@
             ))
 
 (def db-host
-  (or (System/getenv "MYSQL_PORT_3306_TCP_ADDR") "dockerhost"))
+  (or (System/getenv "MYSQL_PORT_3306_TCP_ADDR") "esports-mysql.cr26tvpoftg3.eu-west-1.rds.amazonaws.com"))
 
-(def db-port (read-string (or (System/getenv "MYSQL_PORT_3306_TCP_PORT") "3308")))
+(def db-port (read-string (or (System/getenv "MYSQL_PORT_3306_TCP_PORT") "3306")))
 
 (defdb db (mysql {:host     db-host
                   :db       "ebotv3"
