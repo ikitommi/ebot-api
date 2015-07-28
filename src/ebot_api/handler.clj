@@ -86,7 +86,7 @@
                   :tags ["api"]
                   (GET* "/matches" []
                         :summary "Get all matches"
-                        (ok (get-all-matchs)))
+                        (ok (cheshire/generate-string(get-all-matchs))))
                   (GET* "/match/:id" []
                         :summary "Get match with id"
                         :path-params [id :- Long]
@@ -105,6 +105,6 @@
                   (GET* "/team/:id" []
                         :summary "Get team with id"
                         :path-params [id :- Long]
-                        (ok (get-team id)))
+                        (ok (cheshire/generate-string(get-team id))))
 
                   ))
