@@ -4,9 +4,7 @@
             [schema.core :as s]
             [korma.core :refer :all]
             [korma.db :refer :all]
-            [cheshire.core :as cheshire]
-            [ring.middleware.cors :refer [wrap-cors]]
-            ))
+            [ring.middleware.cors :refer [wrap-cors]]))
 
 (def db-host
   (or (System/getenv "MYSQL_PORT_3306_TCP_ADDR") "esports-mysql.cr26tvpoftg3.eu-west-1.rds.amazonaws.com"))
@@ -86,22 +84,22 @@
                   :tags ["api"]
                   (GET* "/matches" []
                         :summary "Get all matches"
-                        (ok (cheshire/generate-string(get-all-matchs))))
+                        (ok (get-all-matchs)))
                   (GET* "/match/:id" []
                         :summary "Get match with id"
                         :path-params [id :- Long]
-                        (ok (cheshire/generate-string (get-matchs id))))
+                        (ok (get-matchs id)))
                   (GET* "/rounds/:matchid" []
                         :summary "Get rounds with match id"
                         :path-params [matchid :- Long]
-                        (ok (cheshire/generate-string (get-rounds matchid))))
+                        (ok (get-rounds matchid)))
                   (GET* "/round/:id" []
                         :summary "Get round with id"
                         :path-params [id :- Long]
-                        (ok (cheshire/generate-string (get-round id))))
+                        (ok (get-round id)))
                   (GET* "/team/:id" []
                         :summary "Get team with id"
                         :path-params [id :- Long]
-                        (ok (cheshire/generate-string(get-team id))))
+                        (ok (get-team id)))
 
                   ))
