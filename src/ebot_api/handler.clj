@@ -5,6 +5,7 @@
             [korma.core :refer :all]
             [korma.db :refer :all]
             [cheshire.core :as cheshire]
+            [ring.middleware.cors :refer [wrap-cors]]
             ))
 
 (def db-host
@@ -70,7 +71,12 @@
 (defn get-rounds [matchid]
   (select round (with round_summary) (with players_snapshot) (where {:match_id matchid}) (order :round_id :DESC)))
 
+
 (defapi app
+        (middlewares [(wrap-cors :access-control-allow-origin #".*"
+                                 :access-control-allow-methods [:get]
+                                 :access-control-allow-headers ["Origin" "X-Requested-With"
+                                                                "Content-Type" "Accept"])])
         (swagger-ui)
         (swagger-docs
           {:info {:title       "Ebot-api"
@@ -80,22 +86,25 @@
                   :tags ["api"]
                   (GET* "/matches" []
                         :summary "Get all matches"
-                        (ok (cheshire/generate-string (get-all-matchs))))
+                        (ok (get-all-matchs)))
                   (GET* "/match/:id" []
                         :summary "Get match with id"
                         :path-params [id :- Long]
+                        :return String
                         (ok (cheshire/generate-string (get-matchs id))))
                   (GET* "/rounds/:matchid" []
                         :summary "Get rounds with match id"
                         :path-params [matchid :- Long]
+                        :return String
                         (ok (cheshire/generate-string (get-rounds matchid))))
                   (GET* "/round/:id" []
                         :summary "Get round with id"
                         :path-params [id :- Long]
+                        :return String
                         (ok (cheshire/generate-string (get-round id))))
                   (GET* "/team/:id" []
                         :summary "Get team with id"
                         :path-params [id :- Long]
-                        (ok (cheshire/generate-string (get-team id))))
+                        (ok (get-team id)))
 
                   ))

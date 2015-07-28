@@ -4,8 +4,9 @@
                  [clj-time "0.9.0"]                         ; required due to bug in lein-ring
                  [metosin/compojure-api "0.22.0"]
                  [korma "0.4.0"]
-                 [mysql/mysql-connector-java "5.1.6"]]
-  :ring {:handler ebot-api.handler/app}
+                 [mysql/mysql-connector-java "5.1.6"]
+                 [ring-cors "0.1.7"]]
+  :ring {:handler ebot-api.handler/app :port 3000}
   :uberjar-name "server.jar"
   :profiles {:dev {:dependencies [[javax.servlet/servlet-api "2.5"]
                                   [cheshire "5.3.1"]
