@@ -71,35 +71,33 @@
 
 
 (defapi app
-        (middlewares [(wrap-cors :access-control-allow-origin #".*"
-                                 :access-control-allow-methods [:get]
-                                 :access-control-allow-headers ["Origin" "X-Requested-With"
-                                                                "Content-Type" "Accept"])])
-        (swagger-ui)
-        (swagger-docs
-          {:info {:title       "Ebot-api"
-                  :description "eBot api"}
-           :tags [{:name "api", :description "EBOT rest api"}]})
-        (context* "/api" []
-                  :tags ["api"]
-                  (GET* "/matches" []
-                        :summary "Get all matches"
-                        (ok (get-all-matchs)))
-                  (GET* "/match/:id" []
-                        :summary "Get match with id"
-                        :path-params [id :- Long]
-                        (ok (get-matchs id)))
-                  (GET* "/rounds/:matchid" []
-                        :summary "Get rounds with match id"
-                        :path-params [matchid :- Long]
-                        (ok (get-rounds matchid)))
-                  (GET* "/round/:id" []
-                        :summary "Get round with id"
-                        :path-params [id :- Long]
-                        (ok (get-round id)))
-                  (GET* "/team/:id" []
-                        :summary "Get team with id"
-                        :path-params [id :- Long]
-                        (ok (get-team id)))
-
-                  ))
+  (middlewares [(wrap-cors :access-control-allow-origin #".*"
+                           :access-control-allow-methods [:get]
+                           :access-control-allow-headers ["Origin" "X-Requested-With"
+                                                          "Content-Type" "Accept"])]
+    (swagger-ui)
+    (swagger-docs
+      {:info {:title       "Ebot-api"
+              :description "eBot api"}
+       :tags [{:name "api", :description "EBOT rest api"}]})
+    (context* "/api" []
+      :tags ["api"]
+      (GET* "/matches" []
+        :summary "Get all matches"
+        (ok (get-all-matchs)))
+      (GET* "/match/:id" []
+        :summary "Get match with id"
+        :path-params [id :- Long]
+        (ok (get-matchs id)))
+      (GET* "/rounds/:matchid" []
+        :summary "Get rounds with match id"
+        :path-params [matchid :- Long]
+        (ok (get-rounds matchid)))
+      (GET* "/round/:id" []
+        :summary "Get round with id"
+        :path-params [id :- Long]
+        (ok (get-round id)))
+      (GET* "/team/:id" []
+        :summary "Get team with id"
+        :path-params [id :- Long]
+        (ok (get-team id))))))
