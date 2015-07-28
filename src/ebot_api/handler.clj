@@ -90,17 +90,14 @@
                   (GET* "/match/:id" []
                         :summary "Get match with id"
                         :path-params [id :- Long]
-                        :return String
                         (ok (cheshire/generate-string (get-matchs id))))
                   (GET* "/rounds/:matchid" []
                         :summary "Get rounds with match id"
                         :path-params [matchid :- Long]
-                        :return String
                         (ok (cheshire/generate-string (get-rounds matchid))))
                   (GET* "/round/:id" []
                         :summary "Get round with id"
                         :path-params [id :- Long]
-                        :return String
                         (ok (cheshire/generate-string (get-round id))))
                   (GET* "/team/:id" []
                         :summary "Get team with id"
